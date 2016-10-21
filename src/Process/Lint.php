@@ -8,12 +8,13 @@
 
 namespace Overtrue\PHPLint\Process;
 
+use Overtrue\PHPLint\ErrorChecker;
 use Symfony\Component\Process\Process;
 
 /**
  * Class Lint.
  */
-class Lint extends Process
+class Lint extends Process implements ErrorChecker
 {
     /**
      * @return bool
@@ -29,7 +30,17 @@ class Lint extends Process
         return strpos($output, 'No syntax errors detected') === false;
     }
 
-    /**
+    public function hasErrors()
+    {
+    	return $this->hasSyntaxError();
+    }
+
+    public function getErrors()
+    {
+	    return $this->getSyntaxError();
+    }
+
+	/**
      * @return bool|string
      */
     public function getSyntaxError()

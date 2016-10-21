@@ -208,10 +208,12 @@ class LintCommand extends Command
         $i = 0;
         $this->output->writeln("\nThere was ".count($errors).' errors:');
 
-        foreach ($errors as $filename => $error) {
-            $this->output->writeln('<comment>'.++$i.". {$filename}:{$error['line']}".'</comment>');
-            $error = preg_replace('~in\s+'.preg_quote($filename).'~', '', $error);
-            $this->output->writeln("<error> {$error['error']}</error>");
+        foreach ($errors as $filename => $errors) {
+        	foreach ($errors as $error) {
+		        $this->output->writeln('<comment>' . ++$i . ". {$filename}:{$error['line']}" . '</comment>');
+		        $error = preg_replace('~in\s+' . preg_quote($filename) . '~', '', $error);
+		        $this->output->writeln("<error> {$error['error']}</error>");
+	        }
         }
     }
 
